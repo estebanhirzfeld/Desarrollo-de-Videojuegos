@@ -13,9 +13,9 @@ public class CannonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))                //Con El Click Izquierdo El cannon Dispara una bola de Tennis
+        if (Input.GetMouseButtonDown(0))                //Con El Click Izquierdo El cannon Dispara una bola de Tenis
         {
-            Debug.Log("Disparo!");
+            Debug.Log("Disparo!");                                              
             Instantiate(bulletPrefab, transform);
         }
     }
