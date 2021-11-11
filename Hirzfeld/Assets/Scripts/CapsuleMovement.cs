@@ -26,7 +26,6 @@ public class CapsuleMovement : MonoBehaviour
     {
         LookDirection();
         DirectionInputs();
-
     }
 
     private void DirectionInputs(){                                 //Movimiento de Poscicion del Player
@@ -58,18 +57,21 @@ public class CapsuleMovement : MonoBehaviour
 
 
 private void OnTriggerEnter(Collider other) {
+    
     if (other.tag == "CheckBox" || other.name == "StartLine")            //Si el Player pisa la linea de Inicio o el CheckBox invoca Look y espera 2 segundos
     {
         Look();
+        GetComponent<Light>().color = 
         Debug.Log("Espera");
         Invoke("TurnLook",2f);
     }
 
-    if (enemyIsWatching == true && verticalAxis > 0.999)           //Si el Player se mueve muy rapido mientras el enemy esta mirando el juego termina
+    if (enemyIsWatching == true && verticalAxis > 0.65)           //Si el Player se mueve muy rapido mientras el enemy esta mirando el juego termina
     {
         Debug.Log(verticalAxis);
         Debug.Log("Dead");
-        UnityEditor.EditorApplication.isPlaying = false;
+        // UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     if (other.name == "EndLine")                                    //El Player al pisar la linea de meta Gana el Juego
