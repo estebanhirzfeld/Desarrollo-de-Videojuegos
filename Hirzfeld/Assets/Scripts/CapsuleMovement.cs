@@ -7,17 +7,25 @@ public class CapsuleMovement : MonoBehaviour
 {
     public float playerSpeed;
     float cameraAxis;
-
+        
     private float horizontalAxis;
     private float verticalAxis;
     private float rotationSpeed;
     private bool enemyIsWatching;
     private GameObject enemy;
+
+    private GameObject pointLight;
+    private GameObject spotLight;
+
     private Vector3 enemyDirection;
+
+
     // Start is called before the first frame update
     void Start()
     {
         enemy = GameObject.Find("Enemy");
+        pointLight = GameObject.Find("Point Light");
+        spotLight = GameObject.Find("Spot Light");
 
     }
 
@@ -45,6 +53,8 @@ public class CapsuleMovement : MonoBehaviour
     private void TurnLook()
     {
         enemy.transform.rotation = Quaternion.LookRotation(new Vector3(enemyDirection.x, enemyDirection.y,180));    //El Enemigo Deja de Mirar hacia el player 
+        pointLight.GetComponent<Light>().color = new Color(0, 255, 0); // Green
+        spotLight.GetComponent<Light>().color = new Color(0, 255, 0); // Green    //Luz del Player y del Escenario
         Debug.Log("Avanza");
         enemyIsWatching = false;
     }
@@ -53,6 +63,8 @@ public class CapsuleMovement : MonoBehaviour
     {
         enemy.transform.rotation = Quaternion.LookRotation(new Vector3(enemyDirection.x, enemyDirection.y,-180));  //El Enemigo Blanco Mira hacia el player
         enemyIsWatching = true;
+        pointLight.GetComponent<Light>().color = new Color(255, 0, 0); // Red
+        spotLight.GetComponent<Light>().color = new Color(255, 0, 0); // Red    //Luz del Player y del Escenario
     }
 
 
@@ -61,15 +73,18 @@ private void OnTriggerEnter(Collider other) {
     if (other.tag == "CheckBox" || other.name == "StartLine")            //Si el Player pisa la linea de Inicio o el CheckBox invoca Look y espera 2 segundos
     {
         Look();
-        GetComponent<Light>().color = 
         Debug.Log("Espera");
+        pointLight.GetComponent<Light>().color = new Color(255, 0, 0); // Red
+        spotLight.GetComponent<Light>().color = new Color(255, 0, 0); // Red    //Luz del Player y del Escenario
         Invoke("TurnLook",2f);
+        
     }
 
     if (enemyIsWatching == true && verticalAxis > 0.65)           //Si el Player se mueve muy rapido mientras el enemy esta mirando el juego termina
     {
         Debug.Log(verticalAxis);
         Debug.Log("Dead");
+        
         // UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
@@ -80,6 +95,10 @@ private void OnTriggerEnter(Collider other) {
         Destroy (GameObject.FindWithTag("CheckBox"));
         enemy.GetComponent<Collider>().isTrigger = false;
 
+        Destroy(GameObject.Find("EndtLine"));                      //Hay que destruir los colliders de las lineas de Inico y fin para que 
+        Destroy(GameObject.Find("StartLine"));                      //no llame a las luces luego de ser destruidas
+        Destroy (pointLight.gameObject);
+        Destroy (spotLight.gameObject);
 
 
         Debug.Log("Winner");
