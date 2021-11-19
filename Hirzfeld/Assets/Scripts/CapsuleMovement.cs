@@ -141,7 +141,9 @@ public class CapsuleMovement : MonoBehaviour
 
     if (enemyIsWatching == true && verticalAxis > 0.65)           //Si el Player se mueve muy rapido mientras el enemy esta mirando el juego termina
     {
-        // Debug.Log("Dead");
+        Debug.Log("Dead");
+        GameManager.score = 0;                                     //Si El Player Pierde, se Reinicia El Score y se reinicia la escena
+        Application.LoadLevel(Application.loadedLevel);
         // UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
@@ -152,9 +154,12 @@ public class CapsuleMovement : MonoBehaviour
         Destroy (GameObject.FindWithTag("CheckBox"));
         enemy.GetComponent<Collider>().isTrigger = false;
 
+        Debug.Log("Win");
 
-
-        Debug.Log("Winner");
+        GameManager.score += 1;                                     //Cada vez que el Player llegue a la meta, el score = + 1 y se reinicia la escena
+        Application.LoadLevel(Application.loadedLevel);
+        Debug.Log("Score: "+ GameManager.score);
+        // SceneManager.loadScene(SceneManager.loadedScene);
     }
     }
 }
