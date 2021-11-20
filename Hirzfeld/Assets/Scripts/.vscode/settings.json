@@ -4,4 +4,12 @@
         "titleBar.activeBackground": "#642a64",
         "titleBar.activeForeground": "#F9FAFC"
     }
+
 }
+
+
+// "workbench.colorCustomizations": {
+//     "activityBar.background": "#481e42",
+//     "titleBar.activeBackground": "#642a64",
+//     "titleBar.activeForeground": "#F9FAFC"
+// }
