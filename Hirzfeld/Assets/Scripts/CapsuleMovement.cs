@@ -23,11 +23,17 @@ public class CapsuleMovement : MonoBehaviour
 
     private float timerGoldenWall = 2.0f;
     private bool isPlayerInGoldenWall = false;
+
+
+    [SerializeField] private int indexItem = 0;
+
+    private InventoryManager mginventory;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        goldenWall = GameObject.Find("Pared Dorada");
-        enemy = GameObject.Find("Enemy");
+        mginventory = GetComponent<InventoryManager>();
 
     }
 
@@ -37,14 +43,37 @@ public class CapsuleMovement : MonoBehaviour
         LookDirection();
         DirectionInputs();
 
-        if (isPlayerInGoldenWall == true)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            timerGoldenWall -= Time.deltaTime;
-            if (timerGoldenWall < 0)
-            {
-                timerGoldenWall = 0;
-            }
+            SpawnItem();
         }
+
+
+        // if (Input.GetKeyDown(KeyCode.Tab))
+        // {
+        //     indexItem++;
+        //     if (indexItem == boxes.Length)
+        //     {
+        //         indexItem = 0;
+        //     }
+        //     SwitchItems(indexItem);
+        // }
+        // if (Input.GetKeyDown(KeyCode.Tab))
+        // {
+        //     indexItem++;
+        //     if (indexItem == boxes.Length)
+        //     {
+        //         indexItem = 0;
+        //     }
+        //     SwitchItems(indexItem);
+        // }
+
+        // void SwitchItems(int index)
+        // {
+        //     Debug.Log("Item Selected: " + boxes[index].name);
+        // }
+
+
     }
 
     private void DirectionInputs(){                                 //Movimiento de Poscicion del Player
@@ -61,75 +90,25 @@ public class CapsuleMovement : MonoBehaviour
         transform.localRotation = angle;    
     }
 
-    private void TurnLook()
-    {
-        enemy.transform.rotation = Quaternion.LookRotation(new Vector3(enemyDirection.x, enemyDirection.y,180));    //El Enemigo Deja de Mirar hacia el player 
-        // Debug.Log("Avanza");
-        enemyIsWatching = false;
-    }
-    
-    private void Look()
-    {
-        enemy.transform.rotation = Quaternion.LookRotation(new Vector3(enemyDirection.x, enemyDirection.y,-180));  //El Enemigo Blanco Mira hacia el player
-        enemyIsWatching = true;
-    }
-
-    private void MoveGoldenWall(){
-        goldenWall.transform.position = new Vector3 (Random.Range(-8.7f, 10.5f), goldenWall.transform.position.y, Random.Range(-23.0f, 22.0f));
-        goldenWall.transform.rotation = Quaternion.LookRotation(new Vector3(Random.Range(0, 360),goldenWallRotation.y,Random.Range(0, 360)));    //El Enemigo Deja de Mirar hacia el player 
-        
-    }
-
-    private void OnCollisionEnter(Collision other) {
-    // PARED DORADA ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (other.gameObject.transform.name == "Pared Dorada")
-    {
-        isPlayerInGoldenWall = true;
-        Debug.Log("Espere 2 Segundos..");
-        
-        
-    }
-    }
-
-    void OnCollisionStay(Collision other) {
-    // PARED DORADA ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (other.gameObject.transform.name == "Pared Dorada" && isPlayerInGoldenWall == true)
-    {
-        Debug.Log("Aun Falta...");
-        if (timerGoldenWall <= 0)
-        {
-            Debug.Log("Moviendo Portal..");
-            MoveGoldenWall();
-            isPlayerInGoldenWall = false;
-            timerGoldenWall = 2f;
-            
-        }
-        
-    }
-
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
 
     void OnTriggerEnter(Collider other) 
     {
-    
+        if (other.gameObject.CompareTag("ColorBox"))
+        {
+            GameObject boxItem = other.gameObject;
+            mginventory.AddItem(boxItem);
+            boxItem.SetActive(false);
+            Debug.Log(boxItem.name);
+        }
+    }
 
-    // PORTAL ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    isSmaller = !isSmaller;
-    if (other.name == "Portal" && isSmaller == false)
+        private void SpawnItem()
     {
-        Debug.Log("Ta chiquito? " + isSmaller);
-        transform.localScale = new Vector3(0.5f,0.5f,0.5f);      //Tras Pasar el portal el Player se encoje 
-        isSmaller = true;
-        
-    }else if (other.name == "Portal" && isSmaller == true){
-        Debug.Log("Ta chiquito? " + isSmaller);
-        transform.localScale = new Vector3(1, 1, 1);      //Tras Pasar el portal el Player se agranda denuevo
-        isSmaller = false;
+        GameObject boxItem = mginventory.GetItem();
+        boxItem.SetActive(true);
+        boxItem.transform.position = transform.position + new Vector3(0f,1f,1.5f);
     }
-    
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    }
 
-    }
-}
+
 
