@@ -48,32 +48,6 @@ public class CapsuleMovement : MonoBehaviour
             SpawnItem();
         }
 
-
-        // if (Input.GetKeyDown(KeyCode.Tab))
-        // {
-        //     indexItem++;
-        //     if (indexItem == boxes.Length)
-        //     {
-        //         indexItem = 0;
-        //     }
-        //     SwitchItems(indexItem);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Tab))
-        // {
-        //     indexItem++;
-        //     if (indexItem == boxes.Length)
-        //     {
-        //         indexItem = 0;
-        //     }
-        //     SwitchItems(indexItem);
-        // }
-
-        // void SwitchItems(int index)
-        // {
-        //     Debug.Log("Item Selected: " + boxes[index].name);
-        // }
-
-
     }
 
     private void DirectionInputs(){                                 //Movimiento de Poscicion del Player
@@ -98,7 +72,6 @@ public class CapsuleMovement : MonoBehaviour
             GameObject boxItem = other.gameObject;
             mginventory.AddItem(boxItem);
             boxItem.SetActive(false);
-            Debug.Log(boxItem.name);
         }
     }
 
