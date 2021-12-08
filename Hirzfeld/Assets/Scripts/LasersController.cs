@@ -8,13 +8,13 @@ public class LasersController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RaycastLaser();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RaycastLaser();
     }
 
     private void RaycastLaser()

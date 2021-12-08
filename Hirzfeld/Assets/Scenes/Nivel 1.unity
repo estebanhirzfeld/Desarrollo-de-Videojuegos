@@ -1015,7 +1015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5834297953423266711, guid: f026a261361d26049af50bbafb447958, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5834297953423266711, guid: f026a261361d26049af50bbafb447958, type: 3}
       propertyPath: enemyRange
