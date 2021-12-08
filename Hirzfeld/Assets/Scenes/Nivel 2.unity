@@ -2127,6 +2127,7 @@ MonoBehaviour:
   overflowValue: 2
   overflow: 0
   box: {fileID: 1716753278}
+  data: {fileID: 11400000, guid: 2d56c46952e757a4fbfe3ea9f168c3d3, type: 2}
 --- !u!1 &1775401043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,6 +2421,7 @@ MonoBehaviour:
   overflowValue: 4
   overflow: 0
   box: {fileID: 1956579887}
+  data: {fileID: 11400000, guid: b422e91142606d54a80592124939210a, type: 2}
 --- !u!1 &1960340056
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class test : MonoBehaviour
     [SerializeField] protected GameObject box;
 
     // Start is called before the first frame update
-    private void Start()
+    public virtual void Start()
     {
 
     }
@@ -25,7 +25,8 @@ public class test : MonoBehaviour
     }
 
 
-    public virtual void Dimmer(){
+    public virtual void Dimmer()
+    {
         if (changingValue > overflowValue)
         {
             overflow = false;
@@ -38,12 +39,12 @@ public class test : MonoBehaviour
         if (overflow)
         {
             changingValue += 1 * Time.deltaTime;  // Increment
-            box.transform.localScale += new Vector3(0f,0f,changingValue) * Time.deltaTime;
+            box.transform.localScale += new Vector3(0f, 0f, changingValue) * Time.deltaTime;
         }
         else
         {
             changingValue -= 1 * Time.deltaTime;  // Decrement
-            box.transform.localScale -= new Vector3(0f,0f,changingValue) * Time.deltaTime;
+            box.transform.localScale -= new Vector3(0f, 0f, changingValue) * Time.deltaTime;
         }
     }
 }

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BlueBoxController : test
 {
+    [SerializeField] protected BoxData data;
+
+    public override void Start()
+    {
+        data.boxMaterial.color = data.boxColor;
+    }
 
 
     public override void Update()
